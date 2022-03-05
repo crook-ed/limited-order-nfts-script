@@ -3,7 +3,7 @@ const ethers = require("ethers");
 
 const dotenv = require("dotenv").config();
 
-const BigNumber = require("bignumber.js");
+
 const alchemy_key = `https://polygon-mainnet.g.alchemy.com/v2/9VPZHrKVkuzR6gAqaUZi6SpOlBZobRcO`;
 
 let lonftabi = require("./lonft-abi");
@@ -36,7 +36,7 @@ const main = async () => {
     for(let data of datas){
         closed_nfts.add(data.tokenId);
     }
-
+    console.log(closed_nfts);
     thresh =
       result.data.data.logCloses[
         Object.values(result.data.data.logCloses).length - 1
@@ -45,11 +45,11 @@ const main = async () => {
   }
 
   thresh = ``;
-  var res;
-  response = new Map();
+  
+  const response = {};
 
   while(true){
-    res = await axios.post(URL, {
+    const res = await axios.post(URL, {
         query:
           `
               {
@@ -62,9 +62,37 @@ const main = async () => {
               }
               `,
       });
+      if (Object.values(res.data.data.logCreates).length === 0) break;
+    const datas1 = Object.values(res.data.data.logCreates);
 
+    console.log(datas1);
+   
+
+    for (let data of datas1){
+        if(closed_nfts.has(data.tokenId)) {
+            continue;
+        }
+        else{
+            
+
+
+            if(response[data.owner]){
+                
+                response[data.owner].push(data.tokenId)
+            }
+            else{
+                
+                response[data.owner] = [];
+                response[data.owner].push(data.tokenId)
+            }
+        }
+    }
+    thresh =
+    res.data.data.logCreates[Object.values(res.data.data.logCreates).length - 1]
+      .id;
 
   }
 
-
+  console.log(response);
 };
+main();
