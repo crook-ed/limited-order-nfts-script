@@ -36,7 +36,7 @@ const main = async () => {
     for(let data of datas){
         closed_nfts.add(data.tokenId);
     }
-    console.log(closed_nfts);
+    // console.log(closed_nfts);
     thresh =
       result.data.data.logCloses[
         Object.values(result.data.data.logCloses).length - 1
@@ -65,7 +65,7 @@ const main = async () => {
       if (Object.values(res.data.data.logCreates).length === 0) break;
     const datas1 = Object.values(res.data.data.logCreates);
 
-    console.log(datas1);
+    // console.log(datas1);
    
 
     for (let data of datas1){
