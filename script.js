@@ -7,7 +7,7 @@ const dotenv = require("dotenv").config();
 const alchemy_key = `https://polygon-mainnet.g.alchemy.com/v2/9VPZHrKVkuzR6gAqaUZi6SpOlBZobRcO`;
 
 let lonftabi = require("./lonft-abi");
-let addr_lonft = "0xfC428E6535dC5Fee30fb57cFc93EBB1D92fdCf6e".toLowerCase();
+let addr_lonft = "0x94F401fAD3ebb89fB7380f5fF6E875A88E6Af916".toLowerCase();
 let provider = new ethers.providers.JsonRpcProvider(alchemy_key);
 let staker_contract = new ethers.Contract(addr_lonft, lonftabi, provider);
 
